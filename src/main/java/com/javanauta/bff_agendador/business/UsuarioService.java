@@ -7,7 +7,9 @@ import com.javanauta.bff_agendador.business.dto.in.UsuarioDTORequest;
 import com.javanauta.bff_agendador.business.dto.out.EnderecoDTOResponse;
 import com.javanauta.bff_agendador.business.dto.out.TelefoneDTOResponse;
 import com.javanauta.bff_agendador.business.dto.out.UsuarioDTOResponse;
+import com.javanauta.bff_agendador.business.dto.out.ViaCepDTOResponse;
 import com.javanauta.bff_agendador.infrastructure.client.UsuarioClient;
+import com.javanauta.bff_agendador.infrastructure.client.ViaCepClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,9 @@ import org.springframework.stereotype.Service;
 public class UsuarioService {
 
     private final UsuarioClient client;
+    private final ViaCepClient viaCepClient;
     public UsuarioDTOResponse salvaUsuario(UsuarioDTORequest usuarioDTO) {
-        return client.salvarUsuario(usuarioDTO);
+        return client.salvaUsuario(usuarioDTO);
     }
 
     public String loginUsuario(LoginRequestDTO usuarioDTO){
@@ -33,7 +36,7 @@ public class UsuarioService {
     }
 
     public UsuarioDTOResponse atualizaDadosUsuario(String token, UsuarioDTORequest dto){
-        return client.atualizaDadosUsuario(dto, token);
+        return client.atualizDadoUsuario(dto, token);
     }
 
     public EnderecoDTOResponse atualizaEndereco(Long idEndereco, EnderecoDTORequest enderecoDTO, String token){
@@ -45,11 +48,16 @@ public class UsuarioService {
     }
 
     public EnderecoDTOResponse cadastraEndereco(String token, EnderecoDTORequest dto){
-        return client.cadastraEndereco(dto, token);
+        return client.cadastaEndereco(dto, token);
     }
 
     public TelefoneDTOResponse cadastraTelefone(String token, TelefoneDTORequest dto){
         return client.cadastraTelefone(dto, token);
+    }
+
+    public ViaCepDTOResponse buscarEnderecoPorCep(String cep){
+        return viaCepClient.buscarDadosDeCep(cep);
+
     }
 
 
